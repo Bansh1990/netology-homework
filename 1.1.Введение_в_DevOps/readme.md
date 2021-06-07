@@ -1,6 +1,11 @@
 #Домашняя работа Введение в DevOps
 
 
-![блоксхема](https://github.com/Bansh1990/netology-homework/blob/master/01/flow.jpg?raw=true)
+![блоксхема](https://github.com/Bansh1990/netology-homework/blob/master/1.1.%D0%92%D0%B2%D0%B5%D0%B4%D0%B5%D0%BD%D0%B8%D0%B5_%D0%B2_DevOps/flow.jpg?raw=true)
 
 Выше представлен весь жизненный цикл задачи на проекте.
+
+
+На примере данной блоксхемы, задача DevOps инженера
+обеспечить непрерывный и удобный процесс с момента клонирования проекта программистом
+до полного решения задачи.
