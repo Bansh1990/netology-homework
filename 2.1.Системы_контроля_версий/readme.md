@@ -5,6 +5,7 @@
 
 Список игнорируемых файлов
 ```gitignore
+.idea # .idea
 **/.terraform/* # все папки .terraform и все вложенное в нее
 *.tfstate #все файлы с расширением .tfstate
 *.tfstate.* # например .tfstate.dsfsdf
@@ -15,5 +16,5 @@ override.tf.json # override.tf.json
 *_override.tf # например dslkfjdsljk_override.tf
 *_override.tf.json # например hdjfhjkg_override.tf.json
 .terraformrc # .terraformrc
-terraform.rc # terraform.rc
+terraform.rc # terraform.rc.
 ```
