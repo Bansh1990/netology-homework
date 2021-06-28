@@ -1,10 +1,16 @@
 # Домашнее задание к занятию "3.1. Работа в терминале, лекция 1"
 
 5. 2 ядра, 1 ГБ ОЗУ, 4мб видеопамяти, 64 гб ЖД
-6.  в файле vargrant добавить строчки 
-    v.memory = 2048 
-    v.cpus = 4
-    
+6.  в файле vargrant добавить строчки
+```shell
+Vagrant.configure("2") do |config|
+        config.vm.box = "bento/ubuntu-20.04"
+        config.vm.provider "virtualbox" do |v|
+               v.memory = 2048
+               v.cpus = 4
+        end
+ end
+```    
 8. а) HISTSIZE 851 строчка
    
     б) команды выполненные с пробелом или повторяющиеся команды в историю записаны не будут
