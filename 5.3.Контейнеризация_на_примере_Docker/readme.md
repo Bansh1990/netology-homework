@@ -96,6 +96,9 @@ https://hub.docker.com/r/bansh/hey-netology
    docker exec centos-1 touch /share/info/centos-file
    touch ./info/host-file
    docker exec  debian-1 ls /info
+centos-file
+host-file
+
 ```
 ---
 
