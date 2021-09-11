@@ -1,0 +1,4 @@
+FROM amazoncorretto:latest
+ADD https://get.jenkins.io/war-stable/2.303.1/jenkins.war /opt/jenkins.war
+ADD ./entrypoint1.sh /entrypoint1.sh
+ENTRYPOINT ["/entrypoint1.sh"]
