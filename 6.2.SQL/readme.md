@@ -113,7 +113,14 @@ Referenced by:
 |Книга| 500 |
 |Монитор| 7000|
 |Гитара| 4000|
-
+```shell
+insert into orders (id, title, cost) Values
+(1,'Шоколад', 10),
+(2,'Принтер', 3000),
+(3,'Книга', 500),
+(4,'монитор', 7000),
+(5,'Гитара', 4000);
+```
 Таблица clients
 
 |ФИО|Страна проживания|
@@ -123,12 +130,34 @@ Referenced by:
 |Иоганн Себастьян Бах| Japan |
 |Ронни Джеймс Дио| Russia|
 |Ritchie Blackmore| Russia|
-
+```shell
+insert into clients (id, last_name, country) Values
+(1,'Иванов Иван Иванович', 'USA'),
+(2,'Петров Петр Петрович', 'Canada'), 
+(3,'Иоганн Себастьян Бах', 'Japan'),
+(4,'Ронни Джеймс Дио', 'Russia'),
+(5,'Ritchie Blackmore', 'Russia');
+```
 Используя SQL синтаксис:
 - вычислите количество записей для каждой таблицы 
 - приведите в ответе:
     - запросы 
     - результаты их выполнения.
+
+```
+test_db=# SELECT  COUNT(*) FROM orders;
+ count 
+-------
+     5
+(1 row)
+
+test_db=# 
+test_db=# SELECT  COUNT(*) FROM clients;
+ count 
+-------
+     5
+(1 row)
+```
 
 ## Задача 4
 
@@ -148,12 +177,33 @@ Referenced by:
  
 Подсказк - используйте директиву `UPDATE`.
 
+```shell
+UPDATE clients SET order_id = 3 WHERE id = 1;
+UPDATE clients SET order_id = 4 WHERE id = 2;
+UPDATE clients SET order_id = 5 WHERE id = 3;
+test_db=# select * from clients where order_id is not null;
+ id |      last_name       | country | order_id 
+----+----------------------+---------+----------
+  1 | Иванов Иван Иванович | USA     |        3
+  2 | Петров Петр Петрович | Canada  |        4
+  3 | Иоганн Себастьян Бах | Japan   |        5
+(3 rows)
+
+```
+
 ## Задача 5
 
 Получите полную информацию по выполнению запроса выдачи всех пользователей из задачи 4 
 (используя директиву EXPLAIN).
 
 Приведите получившийся результат и объясните что значат полученные значения.
+```
+test_db=# explain select * from clients;
+                         QUERY PLAN                         
+------------------------------------------------------------
+ Seq Scan on clients  (cost=0.00..13.00 rows=300 width=244)
+(1 row)
+```
 
 ## Задача 6
 
@@ -166,7 +216,17 @@ Referenced by:
 Восстановите БД test_db в новом контейнере.
 
 Приведите список операций, который вы применяли для бэкапа данных и восстановления. 
+```
+pg_dump -U postgres test_db > /backup/test-bd.sql
+docker-compose -f docker-compose2.yml up -d
+ docker exec -ti postgres_db2_1 bash
+ 
+psql -U postgres
+create database test_db;
+exit
+psql -U postgres -d test_db < backup/test-bd.sql
 
+```
 ---
 
 ### Как cдавать задание
