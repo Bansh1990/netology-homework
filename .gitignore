@@ -5,4 +5,6 @@
 6.3.MySQL/mysql/data
 6.4.PostgreSQL/postgres/data
 6.4.PostgreSQL/postgres/backup
+7.2.Облачные_провайдеры_и_синтаксис_Terraform/terraform/.terraform
+7.2.Облачные_провайдеры_и_синтаксис_Terraform/terraform/terraform*
 #comment
