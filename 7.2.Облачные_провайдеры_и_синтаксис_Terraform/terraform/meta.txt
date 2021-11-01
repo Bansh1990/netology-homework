@@ -1,0 +1,7 @@
+users:
+  - name: test
+    groups: sudo
+    shell: /bin/bash
+    sudo: ['ALL=(ALL) NOPASSWD:ALL']
+    ssh-authorized-keys:
+      - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDORbgPBdgjHIEjH1nYps2NhRmkk1vdQnX7Jx6cWd2hZV5uy9eGuKhdWPjQwgEcKgP/7ZmW0XNR0oDwVs466F5iK2nh6SnzgPbUsUrf7PN4UViL6oLWgJRTRR6JQVilRKxSfPTjHUoC1bH17iGvtlaeRB8kcQdY/ChXi3KU0tZnaKdndPxzcPffHwp2>
