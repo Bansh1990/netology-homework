@@ -37,27 +37,9 @@ bansh@bansh-VirtualBox $ terraform workspace list
   stage
 
 ```
-```
-variable "web_platform_type_map" {
-  type = map
-  default = {
-    "stage" = "standard-v1"
-    "prod" = "standard-v2"
-  }
 
-}
-
-
-variable "web_instance_count_map" {
-  type = map
-  default = {
-    "stage" = 1
-    "prod" = 2
-  }
-}
-```
 ```shell
-bansh@bansh-VirtualBox ~/netology/netology_homework/7.2.Облачные_провайдеры_и_синтаксис_Terraform/terraform $ terraform plan
+bansh@bansh-VirtualBox ~/ $ terraform plan
 
 Terraform used the selected providers to generate the following execution plan. Resource actions are indicated with the following symbols:
   + create
