@@ -1,0 +1,4 @@
+{
+    "ansible.ansibleLint.arguments": "ansible-lint",
+    "ansible.executionEnvironment.enabled": true
+}
