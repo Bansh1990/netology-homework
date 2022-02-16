@@ -34,6 +34,7 @@
       template:
         src: jdk.sh.j2
         dest: /etc/profile.d/jdk.sh
+        mode: u=rwx,g=rx,o=rx
       tags: java
 - name: Install Elasticsearch
   hosts: elasticsearch
@@ -50,6 +51,7 @@
       until: get_elastic is succeeded
       tags: elastic
     - name: Create directrory for Elasticsearch
+      become: true
       file:
         state: directory
         path: "{{ elastic_home }}"
@@ -69,4 +71,73 @@
       template:
         src: templates/elk.sh.j2
         dest: /etc/profile.d/elk.sh
+        mode: u=rwx,g=rx,o=rx
+
       tags: elastic
+- name: Run Elasticsearch
+  hosts: elasticsearch
+  tasks:
+    - name: Add user elasticsearch
+      become: true
+      user:
+        append: yes
+        name: elasticsearch
+        shell: /bin/bash
+    - name: Fix permissions
+      become: true
+      file:
+        path: "{{ elastic_home }}"
+        owner: elasticsearch
+        group: elasticsearch
+        recurse: true
+    - name: Start elasticsearch
+      command:
+        cmd: sudo runuser -l elasticsearch -c '"{{ elastic_home }}"/bin/elasticsearch -d'
+- name: Install kibana
+  hosts: kibana
+  tasks:
+    - name: Upload tar.gz kibana from remote URL
+      get_url:
+        url: "https://artifacts.elastic.co/downloads/kibana/kibana-{{ kibana_version }}-linux-x86_64.tar.gz"
+        dest: "/tmp/kibana-{{ kibana_version }}-linux-x86_64.tar.gz"
+        mode: 0755
+        timeout: 60
+        force: true
+        validate_certs: false
+      register: get_kibana
+      until: get_kibana is succeeded
+      tags: kibana
+    - name: Create directrory for Kibana
+      become: true
+      file:
+        state: directory
+        path: "{{ kibana_home }}"
+      tags: kibana
+    - name: Extract kibana in the installation directory
+      become: true
+      unarchive:
+        copy: false
+        src: "/tmp/kibana-{{ kibana_version }}-linux-x86_64.tar.gz"
+        dest: "{{ kibana_home }}"
+        extra_opts: [--strip-components=1]
+        creates: "{{ kibana_home }}/bin/kibana"
+      tags:
+        - kibana
+    - name: Set environment kibana
+      become: true
+      template:
+        src: templates/kibana.sh.j2
+        dest: /etc/profile.d/kibana.sh
+        mode: u=rwx,g=rx,o=rx
+
+      tags: kibana
+
+    - name: Confiure kibana
+      become: true
+      template:
+        src: templates/kibana.yml
+        dest: "{{ kibana_home }}/config/kibana.yml"
+        mode: u=rwx,g=rx,o=rx
+
+      tags: kibana     
+

@@ -1,6 +1,18 @@
 ---
 elasticsearch:
   hosts:
-    localhost:
+    84.252.131.147:
       ansible_connection: ssh
-      ansible_user: root
+      ansible_user: bansh
+
+kibana:
+  hosts:
+    178.154.202.192:
+      ansible_connection: ssh
+      ansible_user: bansh
+
+#logstash:
+#  hosts:
+#    localhost:
+#      ansible_connection: ssh
+#      ansible_user: bansh
