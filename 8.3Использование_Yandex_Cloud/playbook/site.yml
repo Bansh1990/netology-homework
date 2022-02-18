@@ -1,0 +1,86 @@
+---
+- name: Install Elasticsearch
+  hosts: elasticsearch
+  handlers:
+    - name: restart Elasticsearch
+      become: true
+      service:
+        name: elasticsearch
+        state: restarted
+  tasks:
+    - name: "Download Elasticsearch's rpm"
+      get_url:
+        url: "https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-{{ elk_stack_version }}-x86_64.rpm"
+        dest: "/tmp/elasticsearch-{{ elk_stack_version }}-x86_64.rpm"
+      register: download_elastic
+      until: download_elastic is succeeded
+    - name: Install Elasticsearch
+      become: true
+      yum:
+        name: "/tmp/elasticsearch-{{ elk_stack_version }}-x86_64.rpm"
+        state: present
+    - name: Configure Elasticsearch
+      become: true
+      template:
+        src: elasticsearch.yml.j2
+        dest: /etc/elasticsearch/elasticsearch.yml
+      notify: restart Elasticsearch
+
+
+
+
+- name: Install kibana
+  hosts: kibana
+  handlers:
+    - name: restart kibana
+      become: true
+      service:
+        name: kibana
+        state: restarted
+  tasks:
+    - name: "Download kibana's rpm"
+      get_url:
+        url: "https://artifacts.elastic.co/downloads/kibana/kibana-{{ elk_stack_version }}-x86_64.rpm"
+        dest: "/tmp/kibana-{{ elk_stack_version }}-x86_64.rpm"
+      register: download_kibana
+      until: download_kibana is succeeded
+    - name: Install kibana
+      become: true
+      yum:
+        name: "/tmp/kibana-{{ elk_stack_version }}-x86_64.rpm"
+        state: present
+    - name: Configure kibana
+      become: true
+      template:
+        src: kibana.yml.j2
+        dest: /etc/kibana/kibana.yml
+      notify: restart kibana
+
+
+
+- name: Install filebeat
+  hosts: filebeat
+  handlers:
+    - name: restart filebeat
+      become: true
+      service:
+        name: filebeat
+        state: restarted
+  tasks:
+    - name: "Download filebeat's rpm"
+      get_url:
+        url: "https://artifacts.elastic.co/downloads/beats/filebeat/filebeat-oss-7.15.1-x86_64.rpm"
+        dest: "/tmp/filebeat-oss-7.15.1-x86_64.rpm"
+      register: download_filebeat
+      until: download_filebeat is succeeded
+    - name: Install filebeat
+      become: true
+      yum:
+        name: "/tmp/filebeat-oss-7.15.1-x86_64.rpm"
+        state: present
+    - name: Configure filebeat
+      become: true
+      template:
+        src: filebeat.yml.j2
+        dest: /etc/filebeat/filebeat.yml
+      notify: restart filebeat
