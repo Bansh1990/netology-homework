@@ -1,0 +1,8 @@
+output.elasticsearch:
+  hosts: ["{{hostvars['elasticsearch_host']['ansible_facts']['default_ipv4']['address'] }}:9200"]
+
+filebeat.inputs:
+- type: log
+  enabled: true
+  paths:
+    - /var/log/*.log
