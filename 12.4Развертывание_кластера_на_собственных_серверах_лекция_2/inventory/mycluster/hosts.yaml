@@ -1,0 +1,44 @@
+all:
+  hosts:
+    master1:
+      ansible_host: 51.250.72.235
+      ansible_user: yc-user
+    master2:
+      ansible_host: 51.250.64.152
+      ansible_user: yc-user
+    master3:
+      ansible_host: 51.250.75.137
+      ansible_user: yc-user
+    worker1:
+      ansible_host: 51.250.1.171
+      ansible_user: yc-user
+    worker2:
+      ansible_host: 51.250.74.245
+      ansible_user: yc-user
+    worker3:
+      ansible_host: 51.250.67.19
+      ansible_user: yc-user
+  children:
+    kube_control_plane:
+      hosts:
+        master1:
+        master2:
+        master3:
+    kube_node:
+      hosts:
+        master2:
+        master3:
+        worker1:
+        worker2:
+        worker3:
+    etcd:
+      hosts:
+        master1:
+        master2:
+        master3:
+    k8s_cluster:
+      children:
+        kube_control_plane:
+        kube_node:
+    calico_rr:
+      hosts: {}
