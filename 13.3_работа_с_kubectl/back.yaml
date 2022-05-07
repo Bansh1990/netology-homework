@@ -1,0 +1,28 @@
+apiVersion: apps/v1   
+kind: Deployment   
+metadata:   
+  labels:   
+    app: backend   
+  name: backend   
+  namespace: default  
+spec:   
+  replicas: 1   
+  selector:   
+    matchLabels:   
+      app: backend   
+  template:   
+    metadata:   
+      labels:   
+        app: backend   
+    spec:   
+      containers:   
+      - image: nginx:1.20   
+        imagePullPolicy: IfNotPresent   
+        name: backend   
+        env:
+          - name: HTTP_PORT
+            value: "9000"    
+        resources:
+          limits:
+            memory: "500Mi"
+            cpu: "500m"
