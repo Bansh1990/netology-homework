@@ -1,0 +1,44 @@
+apiVersion: apps/v1   
+kind: Deployment   
+metadata:   
+  labels:   
+    app: frontback   
+  name: front-back   
+  namespace: default  
+spec:   
+  replicas: 1   
+  selector:   
+    matchLabels:   
+      app: frontback   
+  template:   
+    metadata:   
+      labels:   
+        app: frontback   
+    spec:
+      containers:   
+      - image: nginx:1.20   
+        imagePullPolicy: IfNotPresent   
+        name: frontend
+        resources:
+          limits:
+            memory: "500Mi"
+            cpu: "500m"
+        volumeMounts:
+          - mountPath: /var/www
+            name: shared-dir
+      - image: praqma/network-multitool:alpine-extra   
+        imagePullPolicy: IfNotPresent   
+        name: backend   
+        env:   
+          - name: HTTP_PORT   
+            value: "8080"
+        resources:
+          limits:
+            memory: "500Mi"
+            cpu: "500m"
+        volumeMounts:
+          - mountPath: /tmp/share
+            name: shared-dir
+      volumes:
+      - name: shared-dir
+        emptyDir: {}

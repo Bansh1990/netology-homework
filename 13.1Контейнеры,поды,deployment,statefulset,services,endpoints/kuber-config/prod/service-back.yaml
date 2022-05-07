@@ -8,5 +8,5 @@ spec:
     - name: web
       port: 9000
   selector:
-    app: nginx
+    app: back
   type: ClusterIP
