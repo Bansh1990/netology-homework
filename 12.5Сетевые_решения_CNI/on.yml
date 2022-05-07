@@ -10,7 +10,7 @@ spec:
   policyTypes:
     - Ingress
   ingress:
-    - from:
+    - from: 
       ports:
         - protocol: TCP
           port: 8080
