@@ -29,6 +29,9 @@ NAMESPACE: app1
 STATUS: deployed
 REVISION: 1
 TEST SUITE: None
+
+
+
 bansh@bansh-VirtualBox ~/netology/netology_homework/13.4Helm_и_Jsonnet $ helm upgrade --install app2 --namespace app1 --create-namespace  test-helm
 WARNING: Kubernetes configuration file is group-readable. This is insecure. Location: /home/bansh/.kube/config
 WARNING: Kubernetes configuration file is world-readable. This is insecure. Location: /home/bansh/.kube/config
@@ -39,6 +42,9 @@ NAMESPACE: app1
 STATUS: deployed
 REVISION: 1
 TEST SUITE: None
+
+
+
 bansh@bansh-VirtualBox ~/netology/netology_homework/13.4Helm_и_Jsonnet $ helm upgrade --install app3 --namespace app2 --create-namespace  test-helm
 WARNING: Kubernetes configuration file is group-readable. This is insecure. Location: /home/bansh/.kube/config
 WARNING: Kubernetes configuration file is world-readable. This is insecure. Location: /home/bansh/.kube/config
@@ -49,12 +55,18 @@ NAMESPACE: app2
 STATUS: deployed
 REVISION: 1
 TEST SUITE: None
+
+
+
 bansh@bansh-VirtualBox ~/netology/netology_homework/13.4Helm_и_Jsonnet $ kubectl get po --namespace app1
 NAME                             READY   STATUS    RESTARTS   AGE
 backend-app1-68d65dbcd6-j7pt7    1/1     Running   0          29s
 backend-app2-68d65dbcd6-6s8cx    1/1     Running   0          20s
 frontend-app1-6bb8d4778c-kfrq4   1/1     Running   0          28s
 frontend-app2-6bb8d4778c-xkwbw   1/1     Running   0          20s
+
+
+
 bansh@bansh-VirtualBox ~/netology/netology_homework/13.4Helm_и_Jsonnet $ kubectl get po --namespace app2
 NAME                             READY   STATUS    RESTARTS   AGE
 backend-app3-68d65dbcd6-9mpnl    1/1     Running   0          13s
