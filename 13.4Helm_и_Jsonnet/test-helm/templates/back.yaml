@@ -1,0 +1,27 @@
+apiVersion: apps/v1   
+kind: Deployment   
+metadata:   
+  labels:   
+    app: backend   
+  name: backend-{{ .Release.Name }} 
+spec:   
+  replicas: {{ .Values.replicas }}   
+  selector:   
+    matchLabels:   
+      app: backend   
+  template:   
+    metadata:   
+      labels:   
+        app: backend   
+    spec:   
+      containers:   
+      - image: nginx:{{ .Values.BackendVersion }}   
+        imagePullPolicy: IfNotPresent   
+        name: backend   
+        env:
+          - name: HTTP_PORT
+            value: {{ .Values.BackendPort | quote }}    
+        resources:
+          limits:
+            memory: "500Mi"
+            cpu: "500m"

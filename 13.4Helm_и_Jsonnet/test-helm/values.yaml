@@ -1,0 +1,6 @@
+BackendVersion: "1.19"
+FrontendVersion: "1.19"
+BackendPort: 8000
+FrontendPort: 9000
+replicas: 1
+  

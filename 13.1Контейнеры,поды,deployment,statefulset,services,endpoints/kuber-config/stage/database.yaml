@@ -33,3 +33,17 @@ spec:
         resources:
           requests:
             storage: 1Gi
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: database
+  namespace: default
+spec:
+  ports:
+    - name: web
+      port: 5432
+  selector:
+    app: postgresql-db
+  type: ClusterIP
